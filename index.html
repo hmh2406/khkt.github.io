@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 Phần mềm hỗ trợ học tập chủ động</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Logo và tiêu đề -->
+            <div class="logo-section">
+                <img src="assets/logo.jpg" alt="Logo" onerror="this.style.display='none'">
+                <h1 class="app-title">🎓 PHẦN MỀM HỖ TRỢ HỌC TẬP CHỦ ĐỘNG</h1>
+                <p class="app-subtitle">Học tập thông minh với sự hỗ trợ của AI</p>
+            </div>
+
+            <!-- Form đăng nhập -->
+            <div class="form-container">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-input" required 
+                               placeholder="email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Mật khẩu</label>
+                        <input type="password" id="password" class="form-input" required 
+                               placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Đăng nhập
+                    </button>
+                </form>
+
+                <!-- Form đăng ký -->
+                <form id="registerForm" class="hidden">
+                    <div class="form-group">
+                        <label for="regName" class="form-label">Họ tên</label>
+                        <input type="text" id="regName" class="form-input" required 
+                               placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail" class="form-label">Email</label>
+                        <input type="email" id="regEmail" class="form-input" required 
+                               placeholder="email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword" class="form-label">Mật khẩu</label>
+                        <input type="password" id="regPassword" class="form-input" required 
+                               placeholder="Tối thiểu 6 ký tự">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full">
+                        <i class="fas fa-user-plus"></i>
+                        Đăng ký
+                    </button>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider">
+                <span>hoặc</span>
+            </div>
+
+            <!-- Google Login -->
+            <button id="googleLogin" class="google-btn">
+                <i class="fab fa-google text-red-500"></i>
+                <span>Đăng nhập với Google</span>
+            </button>
+
+            <!-- Form toggle -->
+            <div class="form-toggle">
+                <div id="loginToggle">
+                    <p class="text-sm text-gray-600">
+                        Chưa có tài khoản? 
+                        <a href="#" id="showRegister">Đăng ký ngay</a>
+                    </p>
+                </div>
+                <div id="registerToggle" class="hidden">
+                    <p class="text-sm text-gray-600">
+                        Đã có tài khoản? 
+                        <a href="#" id="showLogin">Đăng nhập</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Error message -->
+            <div id="errorMessage" class="error-message"></div>
+            
+            <!-- Loading indicator -->
+            <div id="loadingIndicator" class="loading-indicator hidden" data-loading>
+                <i class="fas fa-spinner fa-spin text-blue-500"></i>
+                <span class="ml-2 text-gray-600">Đang xử lý...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🛡️ Extension Error Fix - Must be loaded FIRST -->
+    <script src="js/extension-error-fix.js"></script>
+    
+    <!-- 🛡️ Error Handler - Must be loaded second -->
+    <script type="module" src="js/errorHandler.js"></script>
+    
+    <!-- ⏱️ Web Usage Tracker -->
+    <script type="module" src="js/usageTracker.js"></script>
+    <script type="module" src="js/webUsageTracker.js"></script>
+    
+    <script type="module">
+        import { initAuthUI } from './js/auth.js';
+        
+        // Initialize authentication UI
+        document.addEventListener('DOMContentLoaded', () => {
+            initAuthUI();
+            console.log('🎓 Login page initialized');
+        });
+    </script>
+</body>
+</html>

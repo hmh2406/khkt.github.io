@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Thống kê sử dụng - Phần mềm hỗ trợ học tập chủ động</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/usage-analytics.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button id="mobileMenuBtn" class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="dashboard.html" class="logo">
+            <img src="assets/logo.jpg" alt="Logo" onerror="this.style.display='none'">
+            <span>Thống kê</span>
+        </a>
+        <div style="width: 44px;"></div> <!-- Spacer for centering -->
+    </header>
+
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="mobile-overlay"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    <img src="assets/logo.jpg" alt="Logo" onerror="this.style.display='none'">
+                    <span>Học tập chủ động</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Trang chủ</span>
+                </a>
+                <a href="ai-chat-new.html" class="nav-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Chat</span>
+                </a>
+                <a href="usage-analytics.html" class="nav-item active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Thống kê</span>
+                </a>
+                <a href="#" class="nav-item" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                    <span>Cài đặt</span>
+                </a>
+            </nav>
+            
+            <div class="p-4 border-t">
+                <button class="btn btn-danger w-full" data-logout>
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Header Section -->
+                <div class="welcome-section">
+                    <div class="welcome-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-800 mb-2">📊 Thống kê sử dụng</h1>
+                    <p class="text-gray-600">Theo dõi và phân tích thời gian sử dụng của bạn</p>
+                </div>
+
+                <!-- Real-time Stats Card -->
+                <div class="stats-grid">
+                    <div class="stat-card featured">
+                        <div id="realtime-stats"></div>
+                    </div>
+                </div>
+
+                <!-- Analytics Grid -->
+                <div class="analytics-grid">
+                    <!-- Weekly Chart -->
+                    <div class="analytics-card">
+                        <div id="weekly-chart"></div>
+                    </div>
+
+                    <!-- Daily Breakdown -->
+                    <div class="analytics-card">
+                        <div id="daily-breakdown"></div>
+                    </div>
+                </div>
+
+                <!-- Insights Panel -->
+                <div class="insights-section">
+                    <div class="analytics-card full-width">
+                        <div id="insights-panel"></div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="usageAnalytics.refresh()">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Làm mới</span>
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="usageAnalytics.exportData()">
+                        <i class="fas fa-download"></i>
+                        <span>Xuất dữ liệu</span>
+                    </button>
+                    
+                    <button class="btn btn-info" onclick="showUsageSettings()">
+                        <i class="fas fa-cog"></i>
+                        <span>Cài đặt</span>
+                    </button>
+                </div>
+
+                <!-- Usage Tips -->
+                <div class="tips-section">
+                    <div class="section-header">
+                        <h2 class="section-title">💡 Mẹo sử dụng hiệu quả</h2>
+                        <p class="section-subtitle">Tối ưu hóa thời gian học tập của bạn</p>
+                    </div>
+                    
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-icon">🎯</div>
+                            <div class="tip-content">
+                                <h3>Đặt mục tiêu</h3>
+                                <p>Thiết lập thời gian học tập hàng ngày để duy trì thói quen tốt</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon">⏰</div>
+                            <div class="tip-content">
+                                <h3>Nghỉ ngơi đều đặn</h3>
+                                <p>Áp dụng kỹ thuật Pomodoro: 25 phút học, 5 phút nghỉ</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon">📈</div>
+                            <div class="tip-content">
+                                <h3>Theo dõi tiến độ</h3>
+                                <p>Xem lại thống kê hàng tuần để điều chỉnh kế hoạch học tập</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon">🌟</div>
+                            <div class="tip-content">
+                                <h3>Duy trì động lực</h3>
+                                <p>Tự thưởng khi đạt được mục tiêu học tập đã đề ra</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Cài đặt thống kê</h3>
+                <button class="modal-close" onclick="hideUsageSettings()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span>Mục tiêu thời gian hàng ngày (phút)</span>
+                        <input type="number" id="dailyGoal" min="30" max="480" value="120" class="setting-input">
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span>Nhắc nhở nghỉ ngơi</span>
+                        <select id="breakReminder" class="setting-select">
+                            <option value="15">Mỗi 15 phút</option>
+                            <option value="25" selected>Mỗi 25 phút</option>
+                            <option value="30">Mỗi 30 phút</option>
+                            <option value="60">Mỗi 60 phút</option>
+                            <option value="0">Tắt</option>
+                        </select>
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span>Hiển thị thông báo</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="showNotifications" checked>
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span>Chế độ tối tự động</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="autoDarkMode">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideUsageSettings()">Hủy</button>
+                <button class="btn btn-primary" onclick="saveUsageSettings()">Lưu cài đặt</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Cài đặt thống kê</h3>
+                <button class="modal-close" onclick="hideUsageSettings()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span>Mục tiêu thời gian hàng ngày (phút)</span>
+                        <input type="number" id="dailyGoal" min="30" max="480" value="120" class="setting-input">
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span>Nhắc nhở nghỉ ngơi</span>
+                        <select id="breakReminder" class="setting-select">
+                            <option value="15">Mỗi 15 phút</option>
+                            <option value="25" selected>Mỗi 25 phút</option>
+                            <option value="30">Mỗi 30 phút</option>
+                            <option value="60">Mỗi 60 phút</option>
+                            <option value="0">Tắt</option>
+                        </select>
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span>Hiển thị thông báo</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="showNotifications" checked>
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span>Chế độ tối tự động</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="autoDarkMode">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideUsageSettings()">Hủy</button>
+                <button class="btn btn-primary" onclick="saveUsageSettings()">Lưu cài đặt</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- 🛡️ Extension Error Fix - Must be loaded FIRST -->
+    <script src="js/extension-error-fix.js"></script>
+    
+    <!-- 🛡️ Error Handler - Must be loaded second -->
+    <script type="module" src="js/errorHandler.js"></script>
+    
+    <!-- ⏱️ Usage Trackers -->
+    <script type="module" src="js/usageTracker.js"></script>
+    <script type="module" src="js/webUsageTracker.js"></script>
+    <script type="module" src="js/usageAnalytics.js"></script>
+    
+    <script type="module">
+        import { initAuthUI } from './js/auth.js';
+        
+        // Initialize auth UI for logout functionality
+        initAuthUI();
+        
+        // Mobile menu functionality (same as dashboard)
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('open');
+            mobileOverlay.classList.toggle('show');
+        }
+
+        function closeMobileMenu() {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('show');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+        mobileOverlay?.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking on navigation links
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close mobile menu on window resize if screen becomes larger
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Settings Modal Functions
+        window.showUsageSettings = function() {
+            document.getElementById('settingsModal').style.display = 'flex';
+        };
+        
+        window.hideUsageSettings = function() {
+            document.getElementById('settingsModal').style.display = 'none';
+        };
+        
+        window.saveUsageSettings = function() {
+            const settings = {
+                dailyGoal: document.getElementById('dailyGoal').value,
+                breakReminder: document.getElementById('breakReminder').value,
+                showNotifications: document.getElementById('showNotifications').checked,
+                autoDarkMode: document.getElementById('autoDarkMode').checked
+            };
+            
+            localStorage.setItem('usageSettings', JSON.stringify(settings));
+            
+            // Show success message
+            const toast = document.createElement('div');
+            toast.className = 'toast success show';
+            toast.textContent = 'Đã lưu cài đặt thành công!';
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+            
+            hideUsageSettings();
+        };
+        
+        // Load saved settings
+        function loadSettings() {
+            const saved = localStorage.getItem('usageSettings');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                document.getElementById('dailyGoal').value = settings.dailyGoal || 120;
+                document.getElementById('breakReminder').value = settings.breakReminder || 25;
+                document.getElementById('showNotifications').checked = settings.showNotifications !== false;
+                document.getElementById('autoDarkMode').checked = settings.autoDarkMode || false;
+            }
+        }
+        
+        // Settings button handler
+        document.getElementById('settingsBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            showUsageSettings();
+        });
+        
+        // Initialize
+        loadSettings();
+        
+        // Close modal when clicking outside
+        document.getElementById('settingsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideUsageSettings();
+            }
+        });
+        
+        console.log('📊 Usage Analytics page initialized');
+    </script>
+</body>
+</html>

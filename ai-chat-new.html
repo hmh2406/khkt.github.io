@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 AI Chat - Phần mềm hỗ trợ học tập chủ động</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ai-chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button id="mobileMenuBtn" class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">
+            <img src="assets/logo.jpg" alt="Logo" onerror="this.style.display='none'">
+            <span>AI Chat</span>
+        </div>
+        <button id="newConversationBtnMobile" class="mobile-menu-btn">
+            <i class="fas fa-plus"></i>
+        </button>
+    </header>
+
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="mobile-overlay"></div>
+
+    <div class="chat-layout">
+        <!-- Conversations Sidebar -->
+        <aside id="conversationsSidebar" class="conversations-sidebar">
+            <div class="conversations-header">
+                <a href="dashboard.html" class="logo">
+                    <img src="assets/logo.jpg" alt="Logo" onerror="this.style.display='none'">
+                    <span>Học tập chủ động</span>
+                </a>
+                
+                <button id="newConversationBtn" class="new-conversation-btn">
+                    <i class="fas fa-plus"></i>
+                    <span>Cuộc hội thoại mới</span>
+                </button>
+            </div>
+            
+            <div class="conversations-list">
+                <h3>Lịch sử hội thoại</h3>
+                <div id="conversationsList">
+                    <div class="empty-conversations">
+                        <i class="fas fa-comments"></i>
+                        <p>Đang tải...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <nav class="nav-links">
+                    <a href="dashboard.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                    <a href="ai-chat-new.html" class="nav-item active">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Chat</span>
+                    </a>
+                </nav>
+                
+                <button class="btn btn-danger w-full" data-logout>
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Chat Main Area -->
+        <main class="chat-main">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="chat-header-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="chat-header-content">
+                    <h1>AI Hỗ trợ học tập</h1>
+                    <p>Trợ lý AI thông minh giúp bạn học tập hiệu quả</p>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="chat-messages">
+                <!-- Messages will be populated by JavaScript -->
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-area">
+                <!-- Quick Actions Row -->
+                <div class="quick-actions-row">
+                    <div class="quick-actions">
+                        <div class="quick-action" id="quick-math">
+                            <i class="fas fa-calculator"></i>
+                            Giải toán
+                        </div>
+                        <div class="quick-action" id="quick-explain">
+                            <i class="fas fa-lightbulb"></i>
+                            Giải thích
+                        </div>
+                        <div class="quick-action" id="quick-homework">
+                            <i class="fas fa-book"></i>
+                            Bài tập
+                        </div>
+                        <div class="quick-action" id="quick-summary">
+                            <i class="fas fa-file-text"></i>
+                            Tóm tắt
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Input Row -->
+                <div class="input-row">
+                    <div class="input-container">
+                        <textarea 
+                            id="messageInput" 
+                            class="chat-input"
+                            placeholder="Nhập câu hỏi hoặc đề bài của bạn..."
+                            rows="1"
+                        ></textarea>
+                        <button id="sendButton" class="chat-send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <!-- 🛡️ Extension Error Fix - Must be loaded FIRST -->
+    <script src="js/extension-error-fix.js"></script>
+    
+    <!-- 🛡️ Error Handler - Must be loaded second -->
+    <script type="module" src="js/errorHandler.js"></script>
+    
+    <!-- ⏱️ Web Usage Tracker -->
+    <script type="module" src="js/usageTracker.js"></script>
+    <script type="module" src="js/webUsageTracker.js"></script>
+    
+    <script type="module">
+        import './js/ai-new.js';
+        import { initAuthUI } from './js/auth.js';
+        
+        // Initialize auth UI for logout functionality
+        initAuthUI();
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('conversationsSidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const newConversationBtnMobile = document.getElementById('newConversationBtnMobile');
+
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('open');
+            mobileOverlay.classList.toggle('show');
+        }
+
+        function closeMobileMenu() {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('show');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+        mobileOverlay?.addEventListener('click', closeMobileMenu);
+        
+        // Mobile new conversation button
+        newConversationBtnMobile?.addEventListener('click', () => {
+            if (window.modernAIChat) {
+                window.modernAIChat.createNewConversation();
+            }
+        });
+
+        // Close mobile menu when clicking on navigation links
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close mobile menu on window resize if screen becomes larger
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        console.log('🤖 Modern AI Chat page initialized');
+    </script>
+</body>
+</html>

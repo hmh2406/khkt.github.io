@@ -1,0 +1,34 @@
+// Firestore Security Rules for project: jsi07-c5041
+// Copy và paste vào Firebase Console > Firestore Database > Rules
+// 
+// HƯỚNG DẪN CẬP NHẬT:
+// 1. Mở Firebase Console: https://console.firebase.google.com/
+// 2. Chọn project: jsi07-c5041
+// 3. Vào Firestore Database > Rules
+// 4. Copy toàn bộ nội dung bên dưới và paste vào
+// 5. Click "Publish" để áp dụng
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection - user chỉ có thể đọc/ghi profile của mình
+    match /users/{userId} {
+      allow read, write, create, update: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Usage tracking collection - user chỉ có thể truy cập thời gian sử dụng của mình
+    match /usage/{userId} {
+      allow read, write, create, update: if request.auth != null && request.auth.uid == userId;
+      
+      // Daily usage subcollection
+      match /daily/{date} {
+        allow read, write, create, update: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Study time collection - user chỉ có thể truy cập thời gian học của mình (legacy)
+    match /studytime/{userId} {
+      allow read, write, create, update: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

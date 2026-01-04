@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 Dashboard - Phần mềm hỗ trợ học tập chủ động</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button id="mobileMenuBtn" class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="dashboard.html" class="logo">
+            <img src="assets/logo.jpg" alt="Logo" onerror="this.style.display='none'">
+            <span>Học tập chủ động</span>
+        </a>
+        <div style="width: 44px;"></div> <!-- Spacer for centering -->
+    </header>
+
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="mobile-overlay"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    <img src="assets/logo.jpg" alt="Logo" onerror="this.style.display='none'">
+                    <span>Học tập chủ động</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Trang chủ</span>
+                </a>
+                <a href="ai-chat-new.html" class="nav-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Chat</span>
+                </a>
+                <a href="usage-analytics.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Thống kê</span>
+                </a>
+                <a href="#" class="nav-item" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                    <span>Cài đặt</span>
+                </a>
+            </nav>
+            
+            <div class="p-4 border-t">
+                <button class="btn btn-danger w-full" data-logout>
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <img src="" alt="Avatar" class="welcome-avatar" data-user-avatar>
+                    <h1 class="text-2xl font-bold text-gray-800 mb-2">
+                        Xin chào, <span data-user-name>Học sinh</span>! 👋
+                    </h1>
+                    <p class="text-gray-600">Chào mừng bạn quay trở lại với nền tảng học tập thông minh</p>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="quick-action-btn" data-quick-action="ai-chat">
+                        <div class="quick-action-icon" style="background: linear-gradient(135deg, #4f46e5, #7c3aed);">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="font-semibold mb-1">AI Chat</h3>
+                        <p class="text-sm text-gray-600">Hỏi đáp với AI thông minh</p>
+                    </div>
+                    
+                    <div class="quick-action-btn" onclick="window.location.href='usage-analytics.html'">
+                        <div class="quick-action-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3 class="font-semibold mb-1">Thống kê</h3>
+                        <p class="text-sm text-gray-600">Xem tiến độ học tập</p>
+                    </div>
+                    
+                    <div class="quick-action-btn" onclick="location.reload()">
+                        <div class="quick-action-icon" style="background: linear-gradient(135deg, #6b7280, #4b5563);">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3 class="font-semibold mb-1">Làm mới</h3>
+                        <p class="text-sm text-gray-600">Cập nhật trang</p>
+                    </div>
+                </div>
+
+                <!-- Information Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">Chào mừng!</div>
+                        <div class="stat-label">Bạn đã đăng nhập thành công</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value" data-usage-time>0m</div>
+                        <div class="stat-label">Thời gian sử dụng web</div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            Hôm nay • <span data-usage-remaining>120m</span> còn lại
+                        </div>
+                        <div class="usage-progress-container mt-2">
+                            <div class="usage-progress-bar">
+                                <div class="usage-progress normal" data-usage-progress style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">AI Chat</div>
+                        <div class="stat-label">Sẵn sàng hỗ trợ</div>
+                        <div class="text-xs text-gray-500 mt-1">Hỏi đáp thông minh</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">Học tập</div>
+                        <div class="stat-label">Nền tảng hiện đại</div>
+                        <div class="text-xs text-gray-500 mt-1">Giao diện đẹp</div>
+                    </div>
+                </div>
+
+                <!-- Charts and Activity -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- AI Features -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #4f46e5, #7c3aed);">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h3 class="card-title">AI Assistant</h3>
+                                <p class="card-subtitle">Trợ lý thông minh hỗ trợ học tập</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-question-circle text-blue-600"></i>
+                                    <div>
+                                        <div class="font-medium text-blue-800">Hỏi đáp</div>
+                                        <div class="text-sm text-blue-600">Giải đáp thắc mắc học tập</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                                    <i class="fas fa-lightbulb text-green-600"></i>
+                                    <div>
+                                        <div class="font-medium text-green-800">Gợi ý</div>
+                                        <div class="text-sm text-green-600">Đưa ra lời khuyên học tập</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
+                                    <i class="fas fa-book text-purple-600"></i>
+                                    <div>
+                                        <div class="font-medium text-purple-800">Giải thích</div>
+                                        <div class="text-sm text-purple-600">Làm rõ khái niệm khó hiểu</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="window.location.href='ai-chat-new.html'" class="btn btn-primary w-full mt-4">
+                                <i class="fas fa-comments"></i>
+                                Bắt đầu chat với AI
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div>
+                                <h3 class="card-title">Hoạt động gần đây</h3>
+                                <p class="card-subtitle">Các hoạt động mới nhất</p>
+                            </div>
+                        </div>
+                        <div id="recentActivity">
+                            <div class="text-center text-gray-500 py-4">
+                                <i class="fas fa-clock text-2xl mb-2"></i>
+                                <p>Chưa có hoạt động nào</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Tính năng nổi bật</h3>
+                            <p class="card-subtitle">Những điểm mạnh của nền tảng</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-blue-50 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">🤖 AI Thông minh</h4>
+                            <p class="text-sm text-blue-700">Trợ lý AI hỗ trợ giải đáp thắc mắc và hướng dẫn học tập hiệu quả.</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">🎨 Giao diện đẹp</h4>
+                            <p class="text-sm text-green-700">Thiết kế hiện đại với Glass Morphism và hiệu ứng mượt mà.</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 mb-2">📱 Responsive</h4>
+                            <p class="text-sm text-purple-700">Tối ưu hoàn hảo cho mọi thiết bị từ điện thoại đến máy tính.</p>
+                        </div>
+                        <div class="p-4 bg-orange-50 rounded-lg">
+                            <h4 class="font-semibold text-orange-800 mb-2">� Bảo mật</th4>
+                            <p class="text-sm text-orange-700">Hệ thống xác thực an toàn với Firebase Authentication.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <!-- 🛡️ Extension Error Fix - Must be loaded FIRST -->
+    <script src="js/extension-error-fix.js"></script>
+    
+    <!-- 🛡️ Error Handler - Must be loaded second -->
+    <script type="module" src="js/errorHandler.js"></script>
+    
+    <!-- ⏱️ Web Usage Tracker -->
+    <script type="module" src="js/usageTracker.js"></script>
+    <script type="module" src="js/webUsageTracker.js"></script>
+    
+    <script type="module">
+        import './js/dashboard.js';
+        import { initAuthUI } from './js/auth.js';
+        
+        // Initialize auth UI for logout functionality
+        initAuthUI();
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('open');
+            mobileOverlay.classList.toggle('show');
+        }
+
+        function closeMobileMenu() {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('show');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+        mobileOverlay?.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking on navigation links
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close mobile menu on window resize if screen becomes larger
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        console.log('🎓 Dashboard initialized');
+    </script>
+</body>
+</html>
