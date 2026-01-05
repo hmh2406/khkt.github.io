@@ -13,7 +13,7 @@ class ModernAIChat {
         
         // Configuration
         this.config = {
-            apiKey: "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",
+            apiKey: "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",
             model: "gpt-4o-mini",
             maxTokens: 2000,
             temperature: 0.7,
