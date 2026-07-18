@@ -1,219 +1,220 @@
-# 🎓 PHẦN MỀM HỖ TRỢ HỌC TẬP CHỦ ĐỘNG
+Dưới đây là toàn bộ nội dung file tài liệu kỹ thuật và hướng dẫn (`README.md`) đã được biên chỉnh, cấu trúc lại và chuyển đổi hoàn chỉnh dựa trên các yêu cầu từ dự án **HTGSHTKTCHS (Hệ thống gia sư hỗ trợ kiến thức cho học sinh)**.
 
-Nền tảng học tập thông minh với sự hỗ trợ của AI, giúp học sinh học tập hiệu quả và chủ động.
-
-## ✨ Tính năng chính
-
-### 🔐 **Xác thực người dùng**
-- Đăng nhập/đăng ký bằng email & mật khẩu
-- Đăng nhập nhanh với Google
-- Quản lý phiên đăng nhập an toàn với Firebase Auth
-
-### 🤖 **AI Chat thông minh**
-- Hỗ trợ giải bài tập các môn học
-- Quản lý nhiều cuộc hội thoại
-- Giao diện Glass Morphism hiện đại
-- Quick Actions cho các tác vụ phổ biến
-- Typing indicator và message actions
-
-### ⏱️ **Theo dõi thời gian sử dụng web**
-- Tự động theo dõi từ login → logout
-- Lưu trữ Firebase theo ngày
-- Giới hạn 120 phút/ngày với cảnh báo
-- Progress bar và thống kê real-time
-
-### 📊 **Dashboard thống kê**
-- Tổng quan hoạt động học tập
-- Thống kê thời gian sử dụng
-- Quick actions và navigation
-- Responsive design cho mọi thiết bị
-
-## 🛠️ Tech Stack
-
-- **Frontend**: HTML5, CSS3, JavaScript ES Modules
-- **Backend**: Firebase (Authentication + Firestore)
-- **UI**: Glass Morphism design, Inter font
-- **Icons**: Font Awesome 6.4.0
-- **Deployment**: Static hosting
-
-## 📁 Cấu trúc dự án
-
-```
-hoc-tap-chu-dong/
-│
-├── index.html              # Trang đăng nhập
-├── dashboard.html          # Dashboard chính
-├── ai-chat-new.html       # AI Chat hiện đại
-│
-├── css/
-│   ├── style.css          # Base styles & variables
-│   ├── login.css          # Login page styles
-│   ├── dashboard.css      # Dashboard styles
-│   └── ai-chat.css        # AI Chat styles
-│
-├── js/
-│   ├── firebase.js        # Firebase configuration
-│   ├── auth.js           # Authentication logic
-│   ├── dashboard.js      # Dashboard functionality
-│   ├── ai-new.js         # Modern AI Chat system
-│   ├── usageTracker.js   # Web usage tracking
-│   ├── webUsageTracker.js # Display utilities
-│   ├── errorHandler.js   # Global error handling
-│   └── extension-error-fix.js # Browser extension error suppression
-│
-├── assets/
-│   └── logo.jpg          # Application logo
-│
-├── firestore-rules.txt   # Firestore security rules
-└── WEB_USAGE_TRACKER.md  # Usage tracking documentation
-```
-
-## 🚀 Cài đặt và chạy
-
-### 1. Clone repository
-```bash
-git clone <repository-url>
-cd hoc-tap-chu-dong
-```
-
-### 2. Cấu hình Firebase
-1. Tạo project Firebase tại https://console.firebase.google.com/
-2. Bật Authentication (Email/Password + Google)
-3. Tạo Firestore Database
-4. Cập nhật config trong `js/firebase.js`
-
-### 3. Cấu hình Firestore Rules
-Copy nội dung từ `firestore-rules.txt` và paste vào Firebase Console > Firestore > Rules
-
-### 4. Chạy ứng dụng
-```bash
-# Sử dụng Live Server (VS Code extension)
-# Hoặc Python
-python -m http.server 8000
-
-# Hoặc Node.js
-npx serve .
-```
-
-## 🔧 Cấu hình Firebase
-
-### Firebase Config
-Cập nhật thông tin trong `js/firebase.js`:
-```javascript
-const firebaseConfig = {
-    apiKey: "your-api-key",
-    authDomain: "your-project.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "your-app-id"
-};
-```
-
-### Firestore Collections
-- `users`: Thông tin người dùng
-- `usage/{userId}/daily/{date}`: Thời gian sử dụng web theo ngày
-
-## 🎯 Tính năng nổi bật
-
-### Modern AI Chat
-- Glass Morphism UI với backdrop blur
-- Conversation management thông minh
-- Message actions (copy, like)
-- Quick actions cho các tác vụ phổ biến
-- Mobile-first responsive design
-
-### Web Usage Tracking
-- Timestamp-based tracking (không dùng setInterval)
-- Firebase Firestore integration
-- 120 phút/ngày limit với warning system
-- Progress bars với color coding
-- Backup localStorage khi offline
-
-### Clean Architecture
-- ES Modules với proper imports
-- Error handling toàn diện
-- Browser extension error suppression
-- Async function best practices
-
-## �️ Code Quality & Best Practices
-
-### Async Function Pattern
-```javascript
-// ✅ ĐÚNG - Always return boolean
-async function loadData() {
-    if (!user) return false; // Không return trống
-    
-    // ... logic
-    return true; // Return success
-}
-
-// ❌ SAI - Causes "Uncaught (in promise) undefined"
-async function loadData() {
-    if (!user) return; // Return undefined
-}
-```
-
-### Error Handling
-- Global error handler cho unhandled promises
-- Browser extension error suppression
-- Graceful fallbacks cho offline scenarios
-
-## 📱 Responsive Design
-
-- **Desktop**: Full sidebar layout
-- **Tablet**: Adaptive grid system
-- **Mobile**: Collapsible sidebar, touch-friendly UI
-- **Glass Morphism**: Modern blur effects across devices
-
-## 🔒 Bảo mật
-
-- Firestore Security Rules: User isolation
-- Authentication required cho mọi operations
-- No sensitive data in localStorage
-- HTTPS-only Firebase configuration
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-### Netlify
-```bash
-npm i -g netlify-cli
-netlify deploy --prod --dir .
-```
-
-### GitHub Pages
-1. Push code lên GitHub
-2. Settings > Pages > Deploy from branch
-3. Chọn branch main
-
-## 📚 Documentation
-
-- `WEB_USAGE_TRACKER.md`: Chi tiết về hệ thống tracking
-- `firestore-rules.txt`: Security rules cho Firestore
-- Code comments: Comprehensive documentation trong source
-
-## 🔧 Troubleshooting
-
-### Common Issues
-1. **Firebase permission denied**: Check firestore-rules.txt
-2. **Async function errors**: Ensure proper return values
-3. **Extension errors**: Already handled by error suppression
-4. **Mobile layout**: Check viewport meta tag
-
-### Debug Tools
-- Browser DevTools Console
-- Firebase Console > Firestore
-- Network tab for API calls
-- Application tab for localStorage
+Bản tài liệu này loại bỏ hoàn toàn các thành phần của dự án cũ (Firebase, Glass Morphism cũ, Chat, Tracker 120 phút...) và đồng bộ 100% sang kiến trúc mới sử dụng **LocalStorage / JSON Database**, giao diện **Notebook Style UI** cùng các quy tắc nghiêm ngặt về học tập (chống tua video, AI phát hiện lỗ hổng, chống gian lận thi cử).
 
 ---
 
-**Phát triển bởi**: Nhóm phát triển phần mềm học tập  
-**Phiên bản**: 2.0.0  
-**Cập nhật**: January 2026
+# 🎓 PHẦN MỀM GIA SƯ HỖ TRỢ HỌC TẬP CHO HỌC SINH (HTGSHTKTCHS)
+
+Nền tảng hỗ trợ học tập thông minh giúp giáo viên quản lý lớp học, giao bài học và bài kiểm tra; đồng thời hỗ trợ học sinh học tập theo lộ trình cá nhân hóa, phát hiện và khắc phục lỗ hổng kiến thức.
+
+---
+
+## ✨ Tính Năng Chính
+
+### 👨‍🏫 1. Dành cho Giáo viên
+
+* **Quản lý tài khoản:** Đăng ký, đăng nhập hệ thống và đăng xuất an toàn.
+* **Quản lý lớp học:** Tạo lớp học mới, cập nhật thông tin, quản lý mã lớp, danh sách lớp và theo dõi số lượng học sinh tham gia.
+* **Quản lý học sinh:** Thêm, sửa, xóa thông tin học sinh; theo dõi kết quả học tập và danh sách các học sinh đang bị hổng kiến thức.
+* **Quản lý đề thi:** Tạo đề kiểm tra trắc nghiệm, thiết lập đáp án đúng, giao bài cho từng lớp và theo dõi kết quả làm bài theo thời gian thực.
+* **Quản lý bài học:** Đăng tải video bài giảng, tài liệu học tập; sắp xếp bài học theo thứ tự và thiết lập lộ trình học tập, nội dung ôn tập.
+* **Liên lạc & Phối hợp:** Thiết lập nhanh các kênh liên lạc (Zalo, Messenger, Google Meet) và gửi thông báo trực tiếp đến toàn lớp.
+
+### 👨‍🎓 2. Dành cho Học sinh
+
+* **Đăng nhập & Tham gia:** Đăng nhập bằng tài khoản do giáo viên cấp, nhập mã lớp để vào lớp học và quản lý thông tin cá nhân.
+* **Trang chủ học tập:** Hiển thị chuỗi ngày học tập liên tục (Streak), tiến độ tổng quan, điểm kiểm tra gần nhất, thông báo mới và lịch thi.
+* **Bài tăng học nghiêm ngặt:** Học tập theo chuỗi video bài giảng bắt buộc. **Không được phép tua video**, bắt buộc phải xem hoàn thành 100% thời lượng mới được mở khóa bài tiếp theo.
+* **AI phát hiện lỗ hổng kiến thức:** Hệ thống tự động kiểm tra kiến thức ngay sau mỗi bài học. Nếu phát hiện phần yếu, AI sẽ yêu cầu học sinh xem lại đúng phân đoạn video tương ứng và làm lại bài; chỉ khi làm đúng mới được phép tiếp tục lộ trình.
+* **Kiểm tra trực tuyến chống gian lận:** Làm bài trong chế độ toàn màn hình có đồng hồ đếm ngược. Hệ thống tự động chấm điểm và lưu lịch sử.
+* **Bảng xếp hạng & Trao đổi:** Xếp hạng thi đua theo lớp, so sánh tiến độ với bạn bè và tích hợp lối tắt mở nhanh nhóm chat/nhận thông báo từ giáo viên.
+
+---
+
+## 🛡️ Các Cơ Chế & Quy Định Nghiêm Ngặt của Hệ thống
+
+> ⚠️ **Quy định khi học Video:**
+> * Phải xem theo đúng thứ tự tuyến tính, không học tắt, không bỏ qua nội dung.
+> * Hệ thống khóa chức năng tua thanh tiến trình (seek bar).
+> * Xem hết 100% thời lượng video mới kích hoạt trạng thái mở khóa bài tiếp theo.
+> 
+> 
+
+> ⚠️ **Quy định khi làm bài AI kiểm tra kiến thức nền:**
+> * Phải trả lời đúng toàn bộ câu hỏi kiểm tra nhanh của bài học.
+> * Làm sai sẽ bị đánh dấu "Hổng kiến thức" và hệ thống tự động điều hướng, yêu cầu học lại phần lý thuyết liên quan.
+> 
+> 
+
+> 🚨 **Quy định chống gian lận khi làm bài kiểm tra:**
+> * Bắt buộc chạy ở chế độ **Toàn màn hình (Fullscreen)**.
+> * Hệ thống liên tục lắng nghe sự kiện: Chuyển tab, thoát chế độ Fullscreen hoặc thu nhỏ trình duyệt.
+> * **Hình phạt vi phạm:** Hệ thống tự động khóa bài thi ngay lập tức, chấm **0 điểm** và gửi cảnh báo vi phạm về bảng điều khiển của giáo viên.
+> 
+> 
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** HTML5, CSS3, JavaScript (ES6 Modules)
+* **UI/UX Style:** Notebook Style UI (Giao diện sổ tay học tập), Glass Card, Mobile Friendly.
+* **Data Storage:** LocalStorage (Lưu trữ cục bộ ở client) kết hợp cấu trúc tệp dữ liệu tập trung dạng **JSON Database**.
+* **Deployment:** Static Hosting (Live Server, Python HTTP Server, Node.js serve).
+
+---
+
+## 📁 Cấu Trúc Dự Án
+
+```
+Gia-su-ho-tro-hoc-tap/
+│
+├── index.html                  # Trang chọn vai trò (Giáo viên / Học sinh)
+├── login.html                  # Trang đăng nhập chung
+├── register.html               # Trang đăng ký tài khoản dành cho giáo viên
+├── gv.html                     # Giao diện tổng hợp của giáo viên
+│
+├── trangchu.html               # Trang chủ tổng quan của học sinh
+├── baitanghoc.html             # Khu vực học video và làm bài tập AI
+├── kiemtra.html                # Trình làm bài kiểm tra trực tuyến (Chống gian lận)
+├── lophoc.html                 # Quản lý lớp học / Danh sách lớp
+├── nhantin.html                # Giao diện lối tắt nhắn tin và thông báo
+│
+├── css/
+│   ├── style.css               # Định dạng chung và các biến màu sắc cơ bản
+│   ├── shared.css              # Thư viện thành phần dùng chung (Buttons, Cards, Forms)
+│   ├── gv.css                  # Giao diện riêng cho các chức năng giáo viên
+│   └── hs.css                  # Giao diện phong cách Notebook Style cho học sinh
+│
+├── js/
+│   └── shared.js               # Logic điều hướng, xử lý LocalStorage và phân quyền
+│
+├── db.json                     # Cấu trúc sơ đồ cơ sở dữ liệu mô phỏng
+│
+└── assets/
+    ├── video/                  # Lưu trữ video bài giảng ôn tập
+    ├── documents/              # Tài liệu học tập PDF/Word đính kèm
+    └── images/                 # Hình ảnh minh họa, logo ứng dụng
+
+```
+
+---
+
+## 📊 Kiến Trúc Dữ Liệu (db.json & LocalStorage)
+
+Hệ thống lưu trữ và đồng bộ trạng thái thông qua mô hình dữ liệu có cấu trúc như sau:
+
+```json
+{
+  "users": [
+    {
+      "id": "gv_01",
+      "username": "teacherA",
+      "role": "teacher",
+      "classes": ["class_math10"]
+    },
+    {
+      "id": "hs_01",
+      "username": "studentB",
+      "role": "student",
+      "classCode": "class_math10",
+      "streak": 5,
+      "weaknesses": ["Hàm số bậc hai"],
+      "progress": {
+        "video_01": "completed",
+        "video_02": "in_progress"
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "class_math10",
+      "className": "Toán Đại Số 10",
+      "teacherId": "gv_01",
+      "meetLink": "https://meet.google.com/abc-xyz"
+    }
+  ]
+}
+
+```
+
+---
+
+## 🚀 Hướng Dẫn Cài Đặt và Khởi Chạy
+
+### 1. Tải dự án về máy
+
+```bash
+git clone <repository-url>
+cd Gia-su-ho-tro-hoc-tap
+
+```
+
+### 2. Khởi chạy ứng dụng
+
+Do hệ thống sử dụng ES6 Modules để phân tách mã nguồn sạch, bạn cần chạy ứng dụng qua môi trường máy chủ (HTTP Server) để tránh lỗi CORS:
+
+* **Cách 1: Sử dụng VS Code Live Server (Khuyến nghị)**
+1. Cài đặt Extension **Live Server** trên VS Code.
+2. Nhấp chuột phải vào tệp `index.html`.
+3. Chọn **Open with Live Server**.
+
+
+* **Cách 2: Sử dụng Python**
+```bash
+python -m http.server 8000
+
+```
+
+
+Sau đó truy cập đường dẫn: `http://localhost:8000`
+* **Cách 3: Sử dụng Node.js**
+```bash
+npx serve .
+
+```
+
+
+
+---
+
+## 🔄 Quy Trình Vận Hành Hệ Thống
+
+```
+[GIÁO VIÊN] Đăng ký ➔ Đăng nhập ➔ Tạo lớp học ➔ Thêm học sinh ➔ Đăng bài giảng/Đề thi ➔ Theo dõi lỗ hổng kiến thức
+                                                                                     │
+                                                                                     ▼
+[HỌC SINH]  Đăng nhập bằng Acc giáo viên cấp ➔ Vào lớp ➔ Xem video (Chống tua) ➔ Làm bài AI ➔ Thi trực tuyến ➔ Xem BXH
+
+```
+
+---
+
+## 🔧 Hướng Dẫn Xử Lý Sự Cố (Troubleshooting)
+
+| Sự cố | Nguyên nhân phổ biến | Cách khắc phục |
+| --- | --- | --- |
+| **Không đăng nhập được** | Sai thông tin hoặc tài khoản chưa được giáo viên khởi tạo trên hệ thống. | Kiểm tra lại danh sách tài khoản được cấp trong LocalStorage thông qua DevTools. |
+| **Không mở được video tiếp theo** | Video hiện tại chưa được xem đến giây cuối cùng (100% thời lượng). | Xem hết toàn bộ thời lượng video hiện tại, không cố tình tua nhanh. |
+| **Bị khóa bài kiểm tra và nhận điểm 0** | Trình duyệt ghi nhận hành động thoát Fullscreen, mở tab mới hoặc có ứng dụng khác đè lên màn hình. | Liên hệ giáo viên phụ trách để được xóa lịch sử vi phạm và cấp quyền làm lại bài thi. |
+| **Không thấy dữ liệu lớp học** | Mã lớp nhập vào chưa chính xác hoặc học sinh bị xóa khỏi danh sách lớp. | Yêu cầu giáo viên kiểm tra lại mã lớp trên giao diện `lophoc.html` của giáo viên. |
+
+---
+
+## 🚀 Định Hướng Phát Triển Tương Lai
+
+1. 🤖 Tích hợp AI hỗ trợ giải bài tập theo thời gian thực (Real-time AI Tutor Assistant).
+2. ☁️ Đồng bộ và di chuyển toàn bộ dữ liệu từ LocalStorage lên hệ quản trị cơ sở dữ liệu đám mây Firebase/Cloud Database.
+3. 📊 Xây dựng Dashboard thống kê nâng cao với các biểu đồ trực quan (Chart.js) phân tích chi tiết phổ điểm.
+4. 🔔 Phát triển hệ thống thông báo đẩy (Push Notifications) thời gian thực nhắc nhở lịch thi và chuỗi học tập (Streak).
+
+---
+
+**Phát triển bởi:** Nhóm phát triển : Người con xứ nghệ
+
+**Phiên bản:** 2.0.0
+
+**Bảo mật:** Phân quyền truy cập nghiêm ngặt - Dữ liệu cô lập theo lớp và vai trò người dùng: 
+
+July 18th
